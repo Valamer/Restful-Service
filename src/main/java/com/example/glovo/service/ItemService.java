@@ -1,8 +1,8 @@
 package com.example.glovo.service;
 
 import com.example.glovo.dto.ItemDTO;
+import com.example.glovo.entity.ItemEntity;
 import com.example.glovo.mapper.ItemMapper;
-import com.example.glovo.repository.ItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,17 +10,24 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ItemService {
-    private ItemRepository itemRepository;
+    private List<ItemEntity> items;
 
     public List<ItemDTO> getAll() {
-        return itemRepository.findAll().stream().map(ItemMapper::toDTO).toList();
+        return items.stream().map(ItemMapper::toDTO).toList();
+    }
+
+    public ItemDTO save(ItemDTO itemDTO) {
+        items.add(ItemMapper.toEntity(itemDTO));
+        return itemDTO;
     }
 
     public void delete(int id) {
-        itemRepository.deleteById(id);
+        ItemEntity itemEntity = items.stream().filter(item -> item.getId() == id).findFirst().get();
+        items.remove(itemEntity);
     }
 
     public ItemDTO getById(int id) {
-        return itemRepository.findById(id).map(ItemMapper::toDTO).orElseThrow();
+        ItemEntity itemEntity = items.stream().filter(item -> item.getId() == id).findFirst().get();
+        return ItemMapper.toDTO(itemEntity);
     }
 }

@@ -2,7 +2,6 @@ package com.example.glovo.mapper;
 
 import com.example.glovo.dto.OrderDTO;
 
-import com.example.glovo.entity.ItemEntity;
 import com.example.glovo.entity.OrderEntity;
 
 public class OrderMapper {
@@ -11,7 +10,7 @@ public class OrderMapper {
         return OrderDTO.builder()
                 .id(order.getId())
                 .orderNumber(order.getOrderNumber())
-                .itemsId(order.getItems().stream().map(ItemEntity::getId).toList())
+                .itemsId(order.getItemsId())
                 .build();
     }
 

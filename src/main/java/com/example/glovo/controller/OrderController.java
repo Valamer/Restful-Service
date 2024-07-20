@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderController {
 
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping()
     public List<OrderDTO> getAll() {

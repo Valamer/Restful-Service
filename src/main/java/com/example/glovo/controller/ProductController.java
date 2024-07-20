@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping()
     public List<ProductDTO> getAll() {
